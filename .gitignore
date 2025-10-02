@@ -1,3 +1,6 @@
 benchmarks/
 single-benchmark.zip
 *.pyc
+venv/
+zsim/inputs
+zsim/tests

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Usage: ./test A2
+# or:    ./test A3
+
+if [ -z "$1" ]; then
+  echo "Usage: $0 <test_suite>"
+  echo "Example: $0 A2"
+  exit 1
+fi
+
+suite=$1
+
+benchmarks=(blackscholes bodytrack canneal fluidanimate freqmine streamcluster swaptions x264)
+
+for benchmark in "${benchmarks[@]}"; do
+  echo "Running test with benchmark: $benchmark ($suite)"
+  ./hw2runscript "$benchmark" "$suite" &
+  pid=$!
+  wait $pid   # wait for the background process to finish
+done
