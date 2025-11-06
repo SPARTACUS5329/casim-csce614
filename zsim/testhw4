@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# usage: ./hw4runscript <suite> <benchmark> <repl>
+# Example: ./hw4runscript SPEC LRU
+# Example: ./hw4runscript PARSEC LFU
+
+if [ $# -ne 2 ]; then
+  echo "Usage: $0 <suite> <repl>"
+  echo "Example: $0 SPEC LRU"
+  echo "Example: $0 PARSEC LFU"
+  exit 1
+fi
+
+suite=$1
+repl=$2
+
+# Define benchmark lists
+spec_benchmarks=(bzip2 gcc mcf hmmer sjeng libquantum xalancbmk cactusADM namd soplex calculix lbm)
+parsec_benchmarks=(blackscholes bodytrack canneal fluidanimate streamcluster swaptions x264)
+
+# Select benchmark list based on suite
+if [ "$suite" == "SPEC" ]; then
+  benchmarks=("${spec_benchmarks[@]}")
+elif [ "$suite" == "PARSEC" ]; then
+  benchmarks=("${parsec_benchmarks[@]}")
+else
+  echo "Invalid suite: $suite"
+  echo "Valid options are: SPEC or PARSEC"
+  exit 1
+fi
+
+# Run each benchmark with the chosen replacement policy
+for benchmark in "${benchmarks[@]}"; do
+  echo "Running $suite benchmark: $benchmark with replacement policy: $repl"
+  ./hw4runscript "$suite" "$benchmark" "$repl"
+  pid=$!
+  wait $pid   # wait for background process to finish
+done
