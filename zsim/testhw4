@@ -15,7 +15,7 @@ suite=$1
 repl=$2
 
 # Define benchmark lists
-spec_benchmarks=(bzip2 gcc mcf hmmer sjeng libquantum xalancbmk cactusADM namd soplex calculix lbm)
+spec_benchmarks=(bzip2 gcc mcf hmmer sjeng libquantum xalan cactusADM namd soplex calculix lbm)
 parsec_benchmarks=(blackscholes bodytrack canneal fluidanimate streamcluster swaptions x264)
 
 # Select benchmark list based on suite
